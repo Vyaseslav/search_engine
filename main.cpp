@@ -1,0 +1,26 @@
+
+#include "include/ConventerJSON.h"
+#include "include/InvertedIndex.h"
+#include "include/SearchServer.h"
+
+int main() {
+    ConverterJSON converterJson;
+
+    //std::vector<std::string> text = converterJson.GetTextDocuments();
+    //for (int i = 0; i < text.size(); ++i) {
+    //    cout << text[i] << endl;
+    //}
+
+    //cout << converterJson.GetResponsesLimit() << endl;
+
+    //std::vector<std::string> requests = converterJson.GetRequests();
+    //for (int i = 0; i < requests.size(); ++i) {
+    //    cout << requests[i] << endl;
+    //}
+
+    InvertedIndex invertedIndex;
+    invertedIndex.UpdateDocumentBase(converterJson.GetTextDocuments());
+    SearchServer searchServer(invertedIndex);
+    std::vector<std::vector<std::pair<int, float>>> answers = searchServer.relativeIndexToAnswer(searchServer.search(converterJson.GetRequests()));
+    converterJson.putAnswers(answers);
+}

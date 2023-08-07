@@ -19,7 +19,7 @@ public:
     std::vector<std::string> GetTextDocuments()
     {
         std::vector<std::string> config;
-        ifstream input("C:\\Users\\slava\\CLionProjects\\test_search_engine\\config.json");
+        ifstream input("../json/config.json");
         json dict;
         input >> dict;
         config.resize(2);
@@ -44,7 +44,7 @@ public:
     }
 
     int GetResponsesLimit() {
-        ifstream input("C:\\Users\\slava\\CLionProjects\\test_search_engine\\config.json");
+        ifstream input("../json/config.json");
         json dict;
         input >> dict;
         input.close();
@@ -54,7 +54,7 @@ public:
     std::vector<std::string> GetRequests() {
         //int limit = GetResponsesLimit();
         std::vector<std::string> requests;
-        ifstream input("C:\\Users\\slava\\CLionProjects\\test_search_engine\\requests.json");
+        ifstream input("../json/requests.json");
         json dict;
         input >> dict;
         for(int i = 0; i < dict["requests"].size(); i++){
@@ -87,7 +87,7 @@ public:
             json["answers"][requestKey] = requestJson;
         }
 
-        std::ofstream file("C:\\Users\\slava\\CLionProjects\\test_search_engine\\answers.json");
+        std::ofstream file("../json/answers.json");
         file << json.dump(4);
         file.close();
 

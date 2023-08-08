@@ -14,6 +14,9 @@
 # EXTERNAL cache entries
 ########################
 
+//Builds the googlemock subproject
+BUILD_GMOCK:BOOL=ON
+
 //Path to a program.
 CMAKE_ADDR2LINE:FILEPATH=C:/Program Files/JetBrains/CLion 2023.1.4/bin/mingw/bin/addr2line.exe
 
@@ -205,7 +208,7 @@ CMAKE_PROJECT_DESCRIPTION:STATIC=
 CMAKE_PROJECT_HOMEPAGE_URL:STATIC=
 
 //Value Computed by CMake
-CMAKE_PROJECT_NAME:STATIC=test_search_engine
+CMAKE_PROJECT_NAME:STATIC=Google_tests
 
 //Value Computed by CMake
 CMAKE_PROJECT_VERSION:STATIC=3.11.2
@@ -302,6 +305,23 @@ CMAKE_STRIP:FILEPATH=C:/Program Files/JetBrains/CLion 2023.1.4/bin/mingw/bin/str
 // Studio IDE projects all commands are done without /nologo.
 CMAKE_VERBOSE_MAKEFILE:BOOL=FALSE
 
+//Use Abseil and RE2. Requires Abseil and RE2 to be separately
+// added to the build.
+GTEST_HAS_ABSL:BOOL=OFF
+
+//Value Computed by CMake
+Google_tests_BINARY_DIR:STATIC=C:/Users/slava/CLionProjects/test_search_engine/cmake-build-debug
+
+//Value Computed by CMake
+Google_tests_IS_TOP_LEVEL:STATIC=ON
+
+//Value Computed by CMake
+Google_tests_SOURCE_DIR:STATIC=C:/Users/slava/CLionProjects/test_search_engine
+
+//Enable installation of googletest. (Projects embedding googletest
+// may want to turn this OFF.)
+INSTALL_GTEST:BOOL=ON
+
 //Enable CI build targets.
 JSON_CI:BOOL=OFF
 
@@ -330,6 +350,50 @@ JSON_MultipleHeaders:BOOL=ON
 JSON_SystemInclude:BOOL=OFF
 
 //Value Computed by CMake
+gmock_BINARY_DIR:STATIC=C:/Users/slava/CLionProjects/test_search_engine/cmake-build-debug/Google_tests/lib/googlemock
+
+//Value Computed by CMake
+gmock_IS_TOP_LEVEL:STATIC=OFF
+
+//Value Computed by CMake
+gmock_SOURCE_DIR:STATIC=C:/Users/slava/CLionProjects/test_search_engine/Google_tests/lib/googlemock
+
+//Build all of Google Mock's own tests.
+gmock_build_tests:BOOL=OFF
+
+//Value Computed by CMake
+googletest-distribution_BINARY_DIR:STATIC=C:/Users/slava/CLionProjects/test_search_engine/cmake-build-debug/Google_tests/lib
+
+//Value Computed by CMake
+googletest-distribution_IS_TOP_LEVEL:STATIC=OFF
+
+//Value Computed by CMake
+googletest-distribution_SOURCE_DIR:STATIC=C:/Users/slava/CLionProjects/test_search_engine/Google_tests/lib
+
+//Value Computed by CMake
+gtest_BINARY_DIR:STATIC=C:/Users/slava/CLionProjects/test_search_engine/cmake-build-debug/Google_tests/lib/googletest
+
+//Value Computed by CMake
+gtest_IS_TOP_LEVEL:STATIC=OFF
+
+//Value Computed by CMake
+gtest_SOURCE_DIR:STATIC=C:/Users/slava/CLionProjects/test_search_engine/Google_tests/lib/googletest
+
+//Build gtest's sample programs.
+gtest_build_samples:BOOL=OFF
+
+//Build all of gtest's own tests.
+gtest_build_tests:BOOL=OFF
+
+//Disable uses of pthreads in gtest.
+gtest_disable_pthreads:BOOL=OFF
+
+gtest_force_shared_crt:BOOL=ON
+
+//Build gtest with internal symbols hidden in shared libraries.
+gtest_hide_internal_symbols:BOOL=OFF
+
+//Value Computed by CMake
 nlohmann_json_BINARY_DIR:STATIC=C:/Users/slava/CLionProjects/test_search_engine/cmake-build-debug/nlohmann_json
 
 //Value Computed by CMake
@@ -337,6 +401,15 @@ nlohmann_json_IS_TOP_LEVEL:STATIC=OFF
 
 //Value Computed by CMake
 nlohmann_json_SOURCE_DIR:STATIC=C:/Users/slava/CLionProjects/test_search_engine/nlohmann_json
+
+//Value Computed by CMake
+search_engine_BINARY_DIR:STATIC=C:/Users/slava/CLionProjects/test_search_engine/cmake-build-debug
+
+//Value Computed by CMake
+search_engine_IS_TOP_LEVEL:STATIC=ON
+
+//Value Computed by CMake
+search_engine_SOURCE_DIR:STATIC=C:/Users/slava/CLionProjects/test_search_engine
 
 //Value Computed by CMake
 test_search_engine_BINARY_DIR:STATIC=C:/Users/slava/CLionProjects/test_search_engine/cmake-build-debug
@@ -482,7 +555,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=2
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=5
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP
@@ -543,4 +616,29 @@ NLOHMANN_JSON_CONFIG_INSTALL_DIR:INTERNAL=share/cmake/nlohmann_json
 _CMAKE_LINKER_PUSHPOP_STATE_SUPPORTED:INTERNAL=TRUE
 //CMAKE_INSTALL_PREFIX during last run
 _GNUInstallDirs_LAST_CMAKE_INSTALL_PREFIX:INTERNAL=C:/Program Files (x86)/test_search_engine
+//Compiler reason failure
+_Python3_Compiler_REASON_FAILURE:INTERNAL=
+//Development reason failure
+_Python3_Development_REASON_FAILURE:INTERNAL=
+//Path to a program.
+_Python3_EXECUTABLE:INTERNAL=_Python3_EXECUTABLE-NOTFOUND
+//Interpreter reason failure
+_Python3_Interpreter_REASON_FAILURE:INTERNAL=
+//NumPy reason failure
+_Python3_NumPy_REASON_FAILURE:INTERNAL=
+cmake_package_name:INTERNAL=GTest
+generated_dir:INTERNAL=C:/Users/slava/CLionProjects/test_search_engine/cmake-build-debug/Google_tests/lib/googletest/generated
+//ADVANCED property for variable: gmock_build_tests
+gmock_build_tests-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: gtest_build_samples
+gtest_build_samples-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: gtest_build_tests
+gtest_build_tests-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: gtest_disable_pthreads
+gtest_disable_pthreads-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: gtest_force_shared_crt
+gtest_force_shared_crt-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: gtest_hide_internal_symbols
+gtest_hide_internal_symbols-ADVANCED:INTERNAL=1
+targets_export_name:INTERNAL=GTestTargets
 

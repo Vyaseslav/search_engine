@@ -23,7 +23,7 @@ void TestInvertedIndexFunctionality(
     InvertedIndex idx;
     idx.UpdateDocumentBase(docs);
     for(auto& request : requests) {
-        result.push_back(word_count);
+        //result.push_back(word_count);
     }
     ASSERT_EQ(result, expected);
 }

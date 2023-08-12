@@ -1,32 +1,30 @@
-cmake_minimum_required(VERSION 3.2)
-project(search_engine)
+cmake_minimum_required (VERSION 3.8)
+project("test_search_engine")
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_EXE_LINKER_FLAGS ${CMAKE_EXE_LINKER_FLAGS} "-static")
 
-set(JSON_BuildTests OFF CACHE INTERNAL "")
+set(MY_INCLUDE_DIR
+        ${CMAKE_SOURCE_DIR}/include
+        )
+set(MY_SRC_DIR ${CMAKE_SOURCE_DIR}/src)
 
-include_directories("nlohmann_json/include")
+include(FetchContent)
 
-add_executable(test_search_engine src/main.cpp include/ConverterJSON.h include/InvertedIndex.h include/SearchServer.h src/test/Gtest.cpp)
+FetchContent_Declare(
+        googletest
+        GIT_REPOSITORY https://github.com/google/googletest.git
+        GIT_TAG release-1.12.1
+)
+FetchContent_MakeAvailable(googletest)
 
-# 'Google_test' is the subproject name
-project(Google_tests)
+FetchContent_Declare(json URL https://github.com/nlohmann/json/releases/download/v3.11.2/json.tar.xz)
+FetchContent_MakeAvailable(json)
 
-# 'lib' is the folder with Google Test sources
-add_subdirectory(Google_tests/lib)
 include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
-
-# 'Google_Tests_run' is the target name
-# 'test1.cpp tests2.cpp' are source files with tests
-add_executable(Google_Tests_run src/main.cpp )
-target_link_libraries(Google_Tests_run gtest Google_tests)
-
-set(gtest_disable_pthreads on)
-
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 
 enable_testing()
 
-target_link_libraries(test_search_engine PRIVATE gtest_main)
-include(GoogleTest)
-gtest_discover_tests(test_search_engine)
+add_subdirectory(src)
+add_subdirectory(tests)

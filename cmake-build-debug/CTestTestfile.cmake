@@ -4,5 +4,7 @@
 # 
 # This file includes the relevant testing commands required for 
 # testing this directory and lists subdirectories to be tested as well.
-include("C:/Users/slava/CLionProjects/test_search_engine/cmake-build-debug/test_search_engine[1]_include.cmake")
-subdirs("Google_tests/lib")
+subdirs("_deps/googletest-build")
+subdirs("_deps/json-build")
+subdirs("src")
+subdirs("tests")

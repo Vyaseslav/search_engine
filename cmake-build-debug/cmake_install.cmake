@@ -39,7 +39,10 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("C:/Users/slava/CLionProjects/test_search_engine/cmake-build-debug/Google_tests/lib/cmake_install.cmake")
+  include("C:/Users/slava/CLionProjects/test_search_engine/cmake-build-debug/_deps/googletest-build/cmake_install.cmake")
+  include("C:/Users/slava/CLionProjects/test_search_engine/cmake-build-debug/_deps/json-build/cmake_install.cmake")
+  include("C:/Users/slava/CLionProjects/test_search_engine/cmake-build-debug/src/cmake_install.cmake")
+  include("C:/Users/slava/CLionProjects/test_search_engine/cmake-build-debug/tests/cmake_install.cmake")
 
 endif()
 

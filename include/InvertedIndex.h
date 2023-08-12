@@ -6,7 +6,7 @@
 #define TEST_SEARCH_ENGINE_INVERTEDINDEX_H
 
 #include <iostream>
-
+#include <set>
 #include <string>
 #include <vector>
 #include <map>

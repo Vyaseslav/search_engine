@@ -1,6 +1,6 @@
 ﻿#include "SearchServer.h"
 
-std::vector<std::vector<RelativeIndex>> SearchServer::search(const std::vector<std::string> &queries_input) {
+std::vector<std::vector<RelativeIndex>> SearchServer::search(const std::vector<std::string> &queries_input, int responsesLimit) {
     vector<std::vector<RelativeIndex>> relativeIndex;
     vector<string> words;
 //1. Разбивает поисковый запрос на отдельные слова.
@@ -19,7 +19,6 @@ std::vector<std::vector<RelativeIndex>> SearchServer::search(const std::vector<s
             queries.push_back(words.at(i));
         }
     }
-
     vector<string> sorted_queries;
     for (int i = 0; i < queries.size(); i++) {
         if (freq_dictionary.count(queries[i])) {
@@ -35,6 +34,26 @@ std::vector<std::vector<RelativeIndex>> SearchServer::search(const std::vector<s
     for (int i = 0; i < rec_id.size(); ++i) {
         rec_id[i] = i;
     }
+
+    // 3. Сортирует слова в порядке увеличения частоты встречаемости: от самых
+    // редких до самых частых. По возрастанию значения поля count поля
+    // freq_dictionary.
+
+
+    
+/*
+    for (int i = 0; i < sorted_queries.size(); i++) {
+        for (int j = 0; j < sorted_queries.size(); j++) {
+            for (auto a: freq_dictionary[sorted_queries[i]]) {
+                for (auto b: freq_dictionary[sorted_queries[j]]) {
+                    if (a.count > b.count){
+                        swap(sorted_queries[i], sorted_queries[j]);
+                    }
+                }
+            }
+        }
+    }
+*/
 
 // fix!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
@@ -107,7 +126,8 @@ for (const auto& row : relativeIndex) {
     return relativeIndex;
 }
 
-std::vector<std::vector<std::pair<int, float>>> SearchServer::relativeIndexToAnswer(vector<std::vector<RelativeIndex>> relativeIndex) {
+std::vector<std::vector<std::pair<int, float>>>
+SearchServer::relativeIndexToAnswer(vector<std::vector<RelativeIndex>> relativeIndex) {
     std::vector<std::vector<std::pair<int, float>>> answers;
     for (const auto &vec: relativeIndex) {
         std::vector<std::pair<int, float>> temp;

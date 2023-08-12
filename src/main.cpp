@@ -7,6 +7,6 @@ int main() {
     InvertedIndex invertedIndex;
     invertedIndex.UpdateDocumentBase(converterJson.GetTextDocuments());
     SearchServer searchServer(invertedIndex);
-    std::vector<std::vector<std::pair<int, float>>> answers = searchServer.relativeIndexToAnswer(searchServer.search(converterJson.GetRequests()));
+    std::vector<std::vector<std::pair<int, float>>> answers = searchServer.relativeIndexToAnswer(searchServer.search(converterJson.GetRequests(), converterJson.GetResponsesLimit()));
     converterJson.putAnswers(answers);
 }

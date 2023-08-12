@@ -1,5 +1,23 @@
 # search_engine
+Пример работы:
+Нужно заполнить файл config.json, а именно "files"(нужно указать пути к файлам для поиска)
+![image](https://github.com/Vyaseslav/search_engine/assets/79661069/06618579-3919-47e8-a0b0-d527ee022f18)
 
+Затем нужно заполнить файл requests.json, а именно "requests"(нужно указать поисковые запросы)
+![image](https://github.com/Vyaseslav/search_engine/assets/79661069/712eb075-0fce-41f8-b95a-261ee0720d30)
+
+что бы запустить движок нужно открыть search_engine.exe
+
+![image](https://github.com/Vyaseslav/search_engine/assets/79661069/67183c40-aeb8-4e4a-b867-17ce60d44eee)
+
+Если программа успешно завершит работу в консоли появится уведомление
+![image](https://github.com/Vyaseslav/search_engine/assets/79661069/87b07ae9-b744-45ee-adf2-32f0db0bcbd8)
+
+Результат работы программы можно посмотреть в файле answers.json
+![image](https://github.com/Vyaseslav/search_engine/assets/79661069/4a48db5c-cb3b-4485-81f2-da345361d48a)
+
+
+Структура проекта
 main.cpp:
 
 

@@ -40,7 +40,7 @@ std::vector<std::vector<RelativeIndex>> SearchServer::search(const std::vector<s
     // freq_dictionary.
 
 
-    
+
 /*
     for (int i = 0; i < sorted_queries.size(); i++) {
         for (int j = 0; j < sorted_queries.size(); j++) {

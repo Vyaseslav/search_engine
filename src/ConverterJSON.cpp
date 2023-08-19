@@ -6,6 +6,7 @@ std::vector<std::string> ConverterJSON::GetTextDocuments() {
     if (!input)
     {
         cout << "config.json not found!\n";
+        exit(0);
     }
     else {
         //cout << "Fine!\n";
@@ -39,6 +40,7 @@ for (int i = 0; i < config.size(); ++i) {
 }*/
         return config;
     }
+    return{};
 }
 
 int ConverterJSON::GetResponsesLimit() {
@@ -46,6 +48,7 @@ int ConverterJSON::GetResponsesLimit() {
     if (!input)
     {
         cout << "config.json not found!\n";
+        exit(0);
     }
     else {
         //cout << "Fine!\n";
@@ -64,6 +67,7 @@ std::vector<std::string> ConverterJSON::GetRequests() {
     if (!input)
     {
         cout << "requests.json not found!\n";
+        exit(0);
     }
     else {
         //cout << "Fine!\n";
@@ -101,6 +105,7 @@ void ConverterJSON::putAnswers(std::vector<std::vector<std::pair<int, float>>> a
     if (!file)
     {
         cout << "answers.json not found!\n";
+        exit(0);
     }
     else {
         file << json.dump(4);

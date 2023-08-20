@@ -3,8 +3,20 @@
         "request1": {
             "relevance": [
                 {
+                    "docid": 1,
+                    "rank": 1.0
+                },
+                {
+                    "docid": 2,
+                    "rank": 0.8333333134651184
+                },
+                {
                     "docid": 0,
-                    "rank": 0.10000000149011612
+                    "rank": 0.6666666865348816
+                },
+                {
+                    "docid": 3,
+                    "rank": 0.3333333432674408
                 }
             ],
             "result": "true"
@@ -13,11 +25,11 @@
             "relevance": [
                 {
                     "docid": 0,
-                    "rank": 0.0
+                    "rank": 1.0
                 },
                 {
-                    "docid": 1,
-                    "rank": 0.30000001192092896
+                    "docid": 3,
+                    "rank": 0.800000011920929
                 }
             ],
             "result": "true"
@@ -26,11 +38,28 @@
             "relevance": [
                 {
                     "docid": 0,
-                    "rank": 0.0
+                    "rank": 1.0
                 },
                 {
                     "docid": 3,
-                    "rank": 0.0
+                    "rank": 0.800000011920929
+                }
+            ],
+            "result": "true"
+        },
+        "request4": {
+            "relevance": [
+                {
+                    "docid": 1,
+                    "rank": 1.0
+                },
+                {
+                    "docid": 2,
+                    "rank": 0.8333333134651184
+                },
+                {
+                    "docid": 0,
+                    "rank": 0.3333333432674408
                 }
             ],
             "result": "true"

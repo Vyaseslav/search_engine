@@ -3,129 +3,254 @@
 std::vector<std::vector<RelativeIndex>> SearchServer::search(const std::vector<std::string> &queries_input, int responsesLimit) {
     vector<std::vector<RelativeIndex>> relativeIndex;
     vector<string> words;
-//1. Разбивает поисковый запрос на отдельные слова.
-    for (int i = 0; i < queries_input.size(); i++) {
-        std::istringstream iss(queries_input[i]);
-        std::string word;
-        while (iss >> word) {
+    vector<vector<string>> requests;
+
+
+// Разбивает поисковый запрос на отдельные слова.
+    for (int i = 0; i < queries_input.size(); ++i) {
+        stringstream ss(queries_input[i]);
+        string word;
+        while (ss >> word) {
             words.push_back(word);
         }
+        requests.push_back(words);
+        words.clear();
     }
-//2. Формирует из них список уникальных.
-    vector<string> queries;
-    queries.push_back(words[0]);
-    for (int i = 1; i < words.size(); i++) {
-        if (count(queries.begin(), queries.end(), words.at(i)) == 0) {
-            queries.push_back(words.at(i));
-        }
-    }
-    vector<string> sorted_queries;
-    for (int i = 0; i < queries.size(); i++) {
-        if (freq_dictionary.count(queries[i])) {
-            sorted_queries.push_back(queries[i]);
+
+// 2. Формирует из них список уникальных
+    for (int i = 0; i < requests.size(); ++i) {
+        for (int j = 0; j < requests[i].size()-1; ++j) {
+            if(requests[i][j] == requests[i][j+1]){
+                requests[i].erase(requests[i].begin() + j + 1);
+            }
         }
     }
 
-    size_t total_count = 0;
-    vector<int> count;
-    vector<int> rec_id;
-
-    rec_id.resize(sorted_queries.size());
-
-    for (int i = 0; i < rec_id.size(); i++) {
-        rec_id[i] = i;
-    }
-
-    // 3. Сортирует слова в порядке увеличения частоты встречаемости: от самых
-    // редких до самых частых. По возрастанию значения поля count поля
-    // freq_dictionary.
+    //std::cout << std::endl;
+    //for (const auto& request : requests) {
+    //    for (const auto& param : request) {
+    //        std::cout << param << " ";
+    //    }
+    //    std::cout << std::endl;
+    //}
 
 
+    //3. Сортирует слова в порядке увеличения частоты встречаемости: от самых
+    //редких до самых частых. По возрастанию значения поля count поля
+    //freq_dictionary
 
-/*
-    for (int i = 0; i < sorted_queries.size(); i++) {
-        for (int j = 0; j < sorted_queries.size(); j++) {
-            for (auto a: freq_dictionary[sorted_queries[i]]) {
-                for (auto b: freq_dictionary[sorted_queries[j]]) {
-                    if (a.count > b.count){
-                        swap(sorted_queries[i], sorted_queries[j]);
+    vector<vector<pair<string, int>>> sorted_queries;
+    sorted_queries.resize(requests.size());
+
+    int count = 0;
+
+    for (int i = 0; i < requests.size(); ++i) {
+        for (int j = 0; j < requests[i].size(); ++j) {
+            for (auto it = freq_dictionary.begin(); it != freq_dictionary.end(); ++it) {
+                if (it->first == requests[i][j])
+                {
+                    for(auto sec : it->second){
+                        count += sec.count;
                     }
+                    sorted_queries[i].push_back(make_pair(it->first, count));
+                }
+                count = 0;
+            }
+        }
+    }
+
+
+    for (int i = 0; i < sorted_queries.size(); ++i) {
+        for (int j = 0; j < sorted_queries[i].size(); ++j) {
+            for (int k = 0; k < sorted_queries[i].size(); ++k) {
+                if (sorted_queries[i][k].second < sorted_queries[i][j].second) {
+                    swap(sorted_queries[i][k].second, sorted_queries[i][j].second);
+                    swap(sorted_queries[i][k].first, sorted_queries[i][j].first);
                 }
             }
         }
     }
-*/
 
-// fix!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //4. По первому, самому редкому слову из списка находит все документы, в которых
+    //встречается слово.
 
-    for (int i = 0; i < sorted_queries.size(); i++) {
-        vector<Entry> pair = freq_dictionary[sorted_queries[i]];
-        for (int j = 0; j < pair.size(); ++j) {
-            total_count += pair[j].count;
-        }
-        count.push_back(total_count);
-        total_count = 0;
-    }
+    vector<vector<pair<string,vector<int>>>> docs_queries;
+    docs_queries.resize(sorted_queries.size());
 
-    for (int i = 0; i < sorted_queries.size(); i++) {
-        for (int j = 0; j < sorted_queries.size(); j++) {
-            if (count[i] < count[j]) {
-                swap(count[i], count[j]);
-                swap(sorted_queries[i], sorted_queries[j]);
-                swap(rec_id[i], rec_id[j]);
+    for (int i = 0; i < sorted_queries.size(); ++i) {
+        for (int j = 0; j < sorted_queries[i].size(); ++j) {
+            for (auto it = freq_dictionary.begin(); it != freq_dictionary.end(); ++it) {
+                if (it->first == sorted_queries[i][j].first) {
+                    vector<int> docs;
+                    for (auto sec: it->second) {
+
+                        docs.push_back(sec.doc_id);
+                    }
+                    docs_queries[i].push_back(make_pair(sorted_queries[i][j].first, docs));
+                    docs.clear();
+                }
             }
         }
     }
-/*
-cout << "req count id" << endl;
-for (int i = 0; i < sorted_queries.size(); ++i) {
-    cout << sorted_queries[i] << " " <<count[i] << " " << rec_id[i] << endl;
-}
-cout << endl;
-*/
-    vector<RelativeIndex> buffer;
-/*
-cout << "(doc_id, count)" <<endl;
-for(auto pair : freq_dictionary) {
-    cout << pair.first << " ";
-    for (auto sec: pair.second) cout << "(" << sec.doc_id << ", " << sec.count << ")";
+
+
     cout << endl;
-}
-*/
-
-    for (int i = 0; i < sorted_queries.size(); i++) {
-        vector<Entry> pair = freq_dictionary[sorted_queries[i]];
-        buffer.resize(freq_dictionary[sorted_queries[i]].size());
-        for (int j = 0; j < pair.size(); j++) {
-            buffer[j].doc_id = pair[j].doc_id;
+    for (const auto& inner_vector : sorted_queries) {
+        for (const auto& pair : inner_vector) {
+            std::cout << pair.first << ": " << pair.second << " ";
         }
-        relativeIndex.push_back(buffer);
-        buffer.clear();
+        cout << endl;
     }
 
-    float a = 0;
 
-    for (int i = 0; i < sorted_queries.size(); i++) {
-        for (int j = 0; j < relativeIndex[i].size(); j++) {
-            if (rec_id[i] == j) {
-                a += count[j];
+    cout << endl;
+    for (const auto& inner_vector : docs_queries) {
+        for (const auto& pair : inner_vector) {
+            std::cout << pair.first << ": ";
+            for (const auto& value : pair.second) {
+                std::cout << value << " ";
+            }
+            std::cout << std::endl;
+        }
+        cout << endl;
+    }
+
+
+
+    vector<vector<int>> uniq_docs;
+    uniq_docs.resize(sorted_queries.size());
+
+    for (int i = 0; i < docs_queries.size(); ++i) {
+        for (int j = 0; j < docs_queries[i].size(); ++j) {
+            for (int k = 0; k < docs_queries[i][j].second.size(); ++k) {
+                uniq_docs[i].push_back(docs_queries[i][j].second[k]);
             }
         }
-        buffer = relativeIndex[i];
-        buffer[i].rank = a / 10;
-        relativeIndex[i] = buffer;
     }
+
+    for (int i = 0; i < uniq_docs.size(); ++i) {
+        for (int j = 0; j < uniq_docs[i].size()-1; ++j) {
+            if(uniq_docs[i][j] == uniq_docs[i][j+1]){
+                uniq_docs[i].erase(uniq_docs[i].begin() + j + 1);
+            }
+        }
+    }
+    cout << endl;
+    for (int i = 0; i < docs_queries.size(); ++i) {
+        for (int j = 0; j < docs_queries[i].size(); ++j) {
+            cout << uniq_docs[i][j] << " ";
+        } cout << endl;
+    }cout <<endl;
+
+
+    vector<vector<pair<int, int>>> frequency;
+    frequency.resize(docs_queries.size());
+
+
+
+
+
+    for (int i = 0; i < uniq_docs.size(); ++i) {
+        for (int j = 0; j < uniq_docs[j].size(); ++j) {
+            for (auto it = freq_dictionary.begin(); it != freq_dictionary.end(); ++it) {
+
+                    for (auto sec: it->second) {
+                        if(it->first == docs_queries[i][j].first) {
+                            count += sec.count;
+                        }
+                    }
+
+                }
+            if(count != 0)
+            frequency[i].push_back(make_pair(uniq_docs[i][j], count));
+            count = 0;
+        }
+    }
+
+
+    for (int i = 0; i < frequency.size(); ++i) {
+        for (int j = 0; j < frequency[i].size(); ++j) {
+            for (int k = 0; k < frequency[i].size(); ++k) {
+                if(frequency[i][k].second < frequency[i][j].second){
+                    swap(frequency[i][k].second, frequency[i][j].second);
+                    swap(frequency[i][k].first, frequency[i][j].first);
+
+                }
+            }
+        }
+    }
+
+
+    relativeIndex.resize(frequency.size());
+    for (int i = 0; i < relativeIndex.size(); ++i) {
+        relativeIndex[i].resize(frequency[i].size());
+    }
+
+
+    for (int i = 0; i < frequency.size(); ++i) {
+        for (int j = 0; j < frequency[i].size(); ++j) {
+            relativeIndex[i][j].doc_id = frequency[i][j].first;
+            relativeIndex[i][j].rank = ((float)frequency[i][j].second/(float)frequency[i][0].second);
+
+        }
+
+    }
+
+
+
+
+
+
+
+    for (const auto& innerVector : frequency) {
+        for (const auto& pair : innerVector) {
+            std::cout << "(" << pair.first << ", " << pair.second << ") ";
+        }
+        std::cout << std::endl;
+    }
+
+
+
 /*
-cout <<"doc_id, rank\n";
-for (const auto& row : relativeIndex) {
-    for (const auto& element : row) {
-        std::cout << element.doc_id << " " << element.rank << "; ";
+    vector<vector<int>> docs_count;
+    docs_count.resize(docs_queries.size());
+
+    for (int i = 0; i < docs_queries.size(); ++i) {
+        for (int j = 0; j < docs_queries[i].size(); ++j) {
+            for (int k = 0; k < docs_queries[i][j].second.size(); ++k) {
+
+                for (auto it = freq_dictionary.begin(); it != freq_dictionary.end(); ++it) {
+                    for (auto sec: it->second) {
+                        if(docs_queries[i][j].second[k] == sec.doc_id){
+                            count+=sec.count;
+                        }
+                    }
+                }
+                docs_count[i].push_back(count);
+                count = 0;
+            }
+        }
     }
-    std::cout << std::endl;
-}
-*/
+
+    for (int i = 0; i < docs_count.size(); ++i) {
+        for (int j = 0; j < docs_count[j].size(); ++j) {
+            cout << docs_count[i][j] << " ";
+        }
+        cout << endl;
+    }*/
+
+
     return relativeIndex;
 }
+
+
+
+
+
+
+
+
+
 
 std::vector<std::vector<std::pair<int, float>>>
 SearchServer::relativeIndexToAnswer(vector<std::vector<RelativeIndex>> relativeIndex) {

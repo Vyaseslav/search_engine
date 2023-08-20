@@ -110,6 +110,6 @@ void ConverterJSON::putAnswers(std::vector<std::vector<std::pair<int, float>>> a
     else {
         file << json.dump(4);
         file.close();
-        std::cout << "answers.json filled successfully." << std::endl;
+        std::cout << std::endl << "answers.json filled successfully." << std::endl;
     }
 }

@@ -19,12 +19,12 @@ void InvertedIndex::UpdateDocumentBase(std::vector<std::string> input_docs) {
         freq_dictionary.insert(std::make_pair(words[i], GetWordCount(words[i])));
     }
 
-        cout << "(doc_id, count)" << endl;
+        /*cout << "(doc_id, count)" << endl;
         for(auto pair : freq_dictionary) {
             cout << pair.first << " ";
             for(auto sec : pair.second) cout << "(" << sec.doc_id << ", " << sec.count << ")";
             cout << endl;
-        }
+        }*/
 
 }
 

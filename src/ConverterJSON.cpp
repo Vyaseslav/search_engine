@@ -90,7 +90,7 @@ void ConverterJSON::putAnswers(std::vector<std::vector<std::pair<int, float>>> a
 
         for (const auto &pair: answers[i]) {
             nlohmann::json relevanceJson;
-            relevanceJson["docid"] = pair.first;
+            relevanceJson["doc_id"] = pair.first;
             relevanceJson["rank"] = pair.second;
 
             requestJson["relevance"].push_back(relevanceJson);

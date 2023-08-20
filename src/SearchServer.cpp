@@ -92,17 +92,15 @@ std::vector<std::vector<RelativeIndex>> SearchServer::search(const std::vector<s
             }
         }
     }
-
-
+    /*
     cout << endl;
     for (const auto& inner_vector : sorted_queries) {
         for (const auto& pair : inner_vector) {
             std::cout << pair.first << ": " << pair.second << " ";
         }
         cout << endl;
-    }
-
-
+    }*/
+    /*
     cout << endl;
     for (const auto& inner_vector : docs_queries) {
         for (const auto& pair : inner_vector) {
@@ -113,9 +111,7 @@ std::vector<std::vector<RelativeIndex>> SearchServer::search(const std::vector<s
             std::cout << std::endl;
         }
         cout << endl;
-    }
-
-
+    }*/
 
     vector<vector<int>> uniq_docs;
     uniq_docs.resize(sorted_queries.size());
@@ -135,20 +131,16 @@ std::vector<std::vector<RelativeIndex>> SearchServer::search(const std::vector<s
             }
         }
     }
-    cout << endl;
+    /*cout << endl;
     for (int i = 0; i < docs_queries.size(); ++i) {
         for (int j = 0; j < docs_queries[i].size(); ++j) {
             cout << uniq_docs[i][j] << " ";
         } cout << endl;
     }cout <<endl;
-
+    */
 
     vector<vector<pair<int, int>>> frequency;
     frequency.resize(docs_queries.size());
-
-
-
-
 
     for (int i = 0; i < uniq_docs.size(); ++i) {
         for (int j = 0; j < uniq_docs[j].size(); ++j) {
@@ -195,19 +187,13 @@ std::vector<std::vector<RelativeIndex>> SearchServer::search(const std::vector<s
         }
 
     }
-
-
-
-
-
-
-
+    /*
     for (const auto& innerVector : frequency) {
         for (const auto& pair : innerVector) {
             std::cout << "(" << pair.first << ", " << pair.second << ") ";
         }
         std::cout << std::endl;
-    }
+    }*/
 
 
 
@@ -242,15 +228,6 @@ std::vector<std::vector<RelativeIndex>> SearchServer::search(const std::vector<s
 
     return relativeIndex;
 }
-
-
-
-
-
-
-
-
-
 
 std::vector<std::vector<std::pair<int, float>>>
 SearchServer::relativeIndexToAnswer(vector<std::vector<RelativeIndex>> relativeIndex) {

@@ -3,19 +3,19 @@
         "request1": {
             "relevance": [
                 {
-                    "docid": 1,
+                    "doc_id": 1,
                     "rank": 1.0
                 },
                 {
-                    "docid": 2,
+                    "doc_id": 2,
                     "rank": 0.8333333134651184
                 },
                 {
-                    "docid": 0,
+                    "doc_id": 0,
                     "rank": 0.6666666865348816
                 },
                 {
-                    "docid": 3,
+                    "doc_id": 3,
                     "rank": 0.3333333432674408
                 }
             ],
@@ -24,11 +24,11 @@
         "request2": {
             "relevance": [
                 {
-                    "docid": 0,
+                    "doc_id": 0,
                     "rank": 1.0
                 },
                 {
-                    "docid": 3,
+                    "doc_id": 3,
                     "rank": 0.800000011920929
                 }
             ],
@@ -37,11 +37,11 @@
         "request3": {
             "relevance": [
                 {
-                    "docid": 0,
+                    "doc_id": 0,
                     "rank": 1.0
                 },
                 {
-                    "docid": 3,
+                    "doc_id": 3,
                     "rank": 0.800000011920929
                 }
             ],
@@ -50,15 +50,15 @@
         "request4": {
             "relevance": [
                 {
-                    "docid": 1,
+                    "doc_id": 1,
                     "rank": 1.0
                 },
                 {
-                    "docid": 2,
+                    "doc_id": 2,
                     "rank": 0.8333333134651184
                 },
                 {
-                    "docid": 0,
+                    "doc_id": 0,
                     "rank": 0.3333333432674408
                 }
             ],

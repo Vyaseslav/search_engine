@@ -1,6 +1,6 @@
 ﻿#include "SearchServer.h"
 
-std::vector<std::vector<RelativeIndex>> SearchServer::search(const std::vector<std::string> &queries_input, int responsesLimit) {
+std::vector<std::vector<RelativeIndex>> SearchServer::search(const std::vector<std::string> &queries_input) {
     vector<std::vector<RelativeIndex>> relativeIndex;
     vector<string> words;
     vector<vector<string>> requests;

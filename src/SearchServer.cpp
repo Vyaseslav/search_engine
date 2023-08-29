@@ -52,7 +52,7 @@ std::vector<std::vector<RelativeIndex>> SearchServer::search(const std::vector<s
                     for(auto sec : it->second){
                         count += sec.count;
                     }
-                    sorted_queries[i].push_back(make_pair(it->first, count));
+                    sorted_queries[i].emplace_back(make_pair(it->first, count));
                 }
                 count = 0;
             }
@@ -86,7 +86,7 @@ std::vector<std::vector<RelativeIndex>> SearchServer::search(const std::vector<s
 
                         docs.push_back(sec.doc_id);
                     }
-                    docs_queries[i].push_back(make_pair(sorted_queries[i][j].first, docs));
+                    docs_queries[i].emplace_back(make_pair(sorted_queries[i][j].first, docs));
                     docs.clear();
                 }
             }
@@ -154,7 +154,7 @@ std::vector<std::vector<RelativeIndex>> SearchServer::search(const std::vector<s
 
                 }
             if(count != 0)
-            frequency[i].push_back(make_pair(uniq_docs[i][j], count));
+            frequency[i].emplace_back(make_pair(uniq_docs[i][j], count));
             count = 0;
         }
     }

@@ -42,22 +42,27 @@ std::vector<std::vector<RelativeIndex>> SearchServer::search(const std::vector<s
     vector<vector<pair<string, int>>> sorted_queries;
     sorted_queries.resize(requests.size());
 
+    // !!!
     int count = 0;
 
     for (int i = 0; i < requests.size(); ++i) {
         for (int j = 0; j < requests[i].size(); ++j) {
-            for (auto it = freq_dictionary.begin(); it != freq_dictionary.end(); ++it) {
-                if (it->first == requests[i][j])
+            //!!!
+            auto it = freq_dictionary.find(requests[i][j]);
+            if (it == freq_dictionary.end())
+            {
+                //sorted_queries[i].emplace_back(make_pair(requests[i][j], 0));
+            }
+                else if (it->first == requests[i][j])
                 {
-                    for(auto sec : it->second){
+                    for(auto sec : it->second)
                         count += sec.count;
-                    }
                     sorted_queries[i].emplace_back(make_pair(it->first, count));
                 }
-                count = 0;
-            }
+            count = 0;
         }
     }
+
 
 
     for (int i = 0; i < sorted_queries.size(); ++i) {
@@ -92,26 +97,7 @@ std::vector<std::vector<RelativeIndex>> SearchServer::search(const std::vector<s
             }
         }
     }
-    /*
-    cout << endl;
-    for (const auto& inner_vector : sorted_queries) {
-        for (const auto& pair : inner_vector) {
-            std::cout << pair.first << ": " << pair.second << " ";
-        }
-        cout << endl;
-    }*/
-    /*
-    cout << endl;
-    for (const auto& inner_vector : docs_queries) {
-        for (const auto& pair : inner_vector) {
-            std::cout << pair.first << ": ";
-            for (const auto& value : pair.second) {
-                std::cout << value << " ";
-            }
-            std::cout << std::endl;
-        }
-        cout << endl;
-    }*/
+
 
     vector<vector<int>> uniq_docs;
     uniq_docs.resize(sorted_queries.size());
@@ -125,19 +111,12 @@ std::vector<std::vector<RelativeIndex>> SearchServer::search(const std::vector<s
     }
 
     for (int i = 0; i < uniq_docs.size(); ++i) {
-        for (int j = 0; j < uniq_docs[i].size()-1; ++j) {
-            if(uniq_docs[i][j] == uniq_docs[i][j+1]){
-                uniq_docs[i].erase(uniq_docs[i].begin() + j + 1);
+            for (int j = 0; j < uniq_docs[i].size() - 1; ++j) {
+                if (uniq_docs[i][j] == uniq_docs[i][j + 1]) {
+                    uniq_docs[i].erase(uniq_docs[i].begin() + j + 1);
+                }
             }
-        }
     }
-    /*cout << endl;
-    for (int i = 0; i < docs_queries.size(); ++i) {
-        for (int j = 0; j < docs_queries[i].size(); ++j) {
-            cout << uniq_docs[i][j] << " ";
-        } cout << endl;
-    }cout <<endl;
-    */
 
     vector<vector<pair<int, int>>> frequency;
     frequency.resize(docs_queries.size());
@@ -187,44 +166,6 @@ std::vector<std::vector<RelativeIndex>> SearchServer::search(const std::vector<s
         }
 
     }
-    /*
-    for (const auto& innerVector : frequency) {
-        for (const auto& pair : innerVector) {
-            std::cout << "(" << pair.first << ", " << pair.second << ") ";
-        }
-        std::cout << std::endl;
-    }*/
-
-
-
-/*
-    vector<vector<int>> docs_count;
-    docs_count.resize(docs_queries.size());
-
-    for (int i = 0; i < docs_queries.size(); ++i) {
-        for (int j = 0; j < docs_queries[i].size(); ++j) {
-            for (int k = 0; k < docs_queries[i][j].second.size(); ++k) {
-
-                for (auto it = freq_dictionary.begin(); it != freq_dictionary.end(); ++it) {
-                    for (auto sec: it->second) {
-                        if(docs_queries[i][j].second[k] == sec.doc_id){
-                            count+=sec.count;
-                        }
-                    }
-                }
-                docs_count[i].push_back(count);
-                count = 0;
-            }
-        }
-    }
-
-    for (int i = 0; i < docs_count.size(); ++i) {
-        for (int j = 0; j < docs_count[j].size(); ++j) {
-            cout << docs_count[i][j] << " ";
-        }
-        cout << endl;
-    }*/
-
 
     return relativeIndex;
 }

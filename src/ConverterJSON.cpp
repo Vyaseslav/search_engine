@@ -38,6 +38,8 @@ std::vector<std::string> ConverterJSON::GetTextDocuments() {
 for (int i = 0; i < config.size(); ++i) {
     cout << config[i] << endl;
 }*/
+        config.erase(config.begin()); //delete name
+        config.erase(config.begin()); //delete version
         return config;
     }
     return{};
@@ -108,7 +110,7 @@ void ConverterJSON::putAnswers(std::vector<std::vector<std::pair<int, float>>> a
         exit(0);
     }
     else {
-        file << json.dump(4);
+        file << json.dump(GetResponsesLimit());
         file.close();
         std::cout << std::endl << "answers.json filled successfully." << std::endl;
     }

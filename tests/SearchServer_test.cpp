@@ -3,7 +3,7 @@
 
 TEST(TestCaseSearchServer, TestSimple) {
     const vector<string> docs = {
-            "milk milk milk milk water water water",
+            "milk milk milk milk water water water sugar",
             "milk water water",
             "milk milk milk milk milk water water water water water",
             "americano cappuccino"
@@ -16,6 +16,7 @@ TEST(TestCaseSearchServer, TestSimple) {
                     {1, 0.3}
             },
             {
+                    {0, 1}
             }
     };
     InvertedIndex idx;

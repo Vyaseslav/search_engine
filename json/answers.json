@@ -3,20 +3,8 @@
         "request1": {
             "relevance": [
                 {
-                    "doc_id": 1,
-                    "rank": 1.0
-                },
-                {
-                    "doc_id": 2,
-                    "rank": 0.8333333134651184
-                },
-                {
                     "doc_id": 0,
-                    "rank": 0.6666666865348816
-                },
-                {
-                    "doc_id": 3,
-                    "rank": 0.3333333432674408
+                    "rank": 1.0
                 }
             ],
             "result": "true"
@@ -26,40 +14,6 @@
                 {
                     "doc_id": 0,
                     "rank": 1.0
-                },
-                {
-                    "doc_id": 3,
-                    "rank": 0.800000011920929
-                }
-            ],
-            "result": "true"
-        },
-        "request3": {
-            "relevance": [
-                {
-                    "doc_id": 0,
-                    "rank": 1.0
-                },
-                {
-                    "doc_id": 3,
-                    "rank": 0.800000011920929
-                }
-            ],
-            "result": "true"
-        },
-        "request4": {
-            "relevance": [
-                {
-                    "doc_id": 1,
-                    "rank": 1.0
-                },
-                {
-                    "doc_id": 2,
-                    "rank": 0.8333333134651184
-                },
-                {
-                    "doc_id": 0,
-                    "rank": 0.3333333432674408
                 }
             ],
             "result": "true"

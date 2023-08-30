@@ -1,8 +1,6 @@
 #include "InvertedIndex.h"
 
 void InvertedIndex::UpdateDocumentBase(std::vector<std::string> input_docs) {
-    input_docs.erase(input_docs.begin()); //delete name
-    input_docs.erase(input_docs.begin()); //delete version
     std::vector<std::string> words;
     docs = input_docs;
     //split text to words

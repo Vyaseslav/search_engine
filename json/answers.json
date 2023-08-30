@@ -3,8 +3,16 @@
         "request1": {
             "relevance": [
                 {
+                    "doc_id": 1,
+                    "rank": 1.0
+                },
+                {
                     "doc_id": 0,
                     "rank": 1.0
+                },
+                {
+                    "doc_id": 2,
+                    "rank": 0.8333333134651184
                 }
             ],
             "result": "true"
@@ -13,6 +21,44 @@
             "relevance": [
                 {
                     "doc_id": 0,
+                    "rank": 1.0
+                },
+                {
+                    "doc_id": 3,
+                    "rank": 0.8333333134651184
+                },
+                {
+                    "doc_id": 0,
+                    "rank": 0.5
+                }
+            ],
+            "result": "true"
+        },
+        "request3": {
+            "relevance": [
+                {
+                    "doc_id": 0,
+                    "rank": 1.0
+                },
+                {
+                    "doc_id": 3,
+                    "rank": 0.8333333134651184
+                },
+                {
+                    "doc_id": 0,
+                    "rank": 0.8333333134651184
+                }
+            ],
+            "result": "true"
+        },
+        "request4": {
+            "relevance": [
+                {
+                    "doc_id": 0,
+                    "rank": 1.0
+                },
+                {
+                    "doc_id": 2,
                     "rank": 1.0
                 }
             ],

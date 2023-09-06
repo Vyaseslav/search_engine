@@ -26,14 +26,6 @@ std::vector<std::vector<RelativeIndex>> SearchServer::search(const std::vector<s
         }
     }
 
-    std::cout << std::endl;
-    for (const auto& request : requests) {
-        for (const auto& param : request) {
-            std::cout << param << " ";
-        }
-        std::cout << std::endl;
-    }
-
 
     //3. Сортирует слова в порядке увеличения частоты встречаемости: от самых
     //редких до самых частых. По возрастанию значения поля count поля
@@ -51,7 +43,7 @@ std::vector<std::vector<RelativeIndex>> SearchServer::search(const std::vector<s
             auto it = freq_dictionary.find(requests[i][j]);
             if (it == freq_dictionary.end())
             {
-                //sorted_queries[i].emplace_back(make_pair(requests[i][j], 0));
+                sorted_queries[i].emplace_back(make_pair(requests[i][j], 0));
             }
                 else if (it->first == requests[i][j])
                 {
@@ -63,13 +55,6 @@ std::vector<std::vector<RelativeIndex>> SearchServer::search(const std::vector<s
         }
     }
 
-    for (const auto& inner_vector : sorted_queries) {
-        for (const auto& element : inner_vector) {
-            std::cout << "(" << element.first << ", " << element.second << ")" << std::endl;
-        }
-    }
-
-
     if(sorted_queries.empty()){
         relativeIndex.resize(1);
         relativeIndex[0].resize(1);
@@ -79,11 +64,6 @@ std::vector<std::vector<RelativeIndex>> SearchServer::search(const std::vector<s
     }
     else {
 
-        for (const auto &inner_vector: sorted_queries) {
-            for (const auto &element: inner_vector) {
-                std::cout << "(" << element.first << ", " << element.second << ")" << std::endl;
-            }
-        }
 
 
         for (int i = 0; i < sorted_queries.size(); ++i) {
@@ -120,12 +100,18 @@ std::vector<std::vector<RelativeIndex>> SearchServer::search(const std::vector<s
         }
 
 
+
+
+
         vector<vector<int>> uniq_docs;
         uniq_docs.resize(docs_queries.size());
 
-        for (int i = 0; i < docs_queries.size(); ++i) {
+
+
+        for (int i = 0; i < uniq_docs.size(); ++i) {
             for (int j = 0; j < docs_queries[i].size(); ++j) {
                 for (int k = 0; k < docs_queries[i][j].second.size(); ++k) {
+                    if((!docs_queries[i].empty()))
                     uniq_docs[i].push_back(docs_queries[i][j].second[k]);
                 }
             }
@@ -133,29 +119,18 @@ std::vector<std::vector<RelativeIndex>> SearchServer::search(const std::vector<s
 
 
 
-        if(uniq_docs.size() > 1) {
-            for (int i = 0; i < uniq_docs.size(); ++i) {
-                for (int j = 0; j < uniq_docs[i].size() - 1; ++j) {
-                    if (uniq_docs[i][j] == uniq_docs[i][j + 1]) {
-                        uniq_docs[i].erase(uniq_docs[i].begin() + j + 1);
-                    }
-                }
-            }
-        }
 
         vector<vector<pair<int, int>>> frequency;
         frequency.resize(docs_queries.size());
 
-        for (int i = 0; i < uniq_docs.size(); ++i) {
-            for (int j = 0; j < uniq_docs[j].size(); ++j) {
+        for (int i = 0; i < docs_queries.size(); ++i) {
+            for (int j = 0; j < docs_queries[i].size(); ++j) {
                 for (auto it = freq_dictionary.begin(); it != freq_dictionary.end(); ++it) {
-
                     for (auto sec: it->second) {
                         if (it->first == docs_queries[i][j].first) {
                             count += sec.count;
                         }
                     }
-
                 }
                 if (count != 0)
                     frequency[i].emplace_back(make_pair(uniq_docs[i][j], count));
@@ -182,15 +157,14 @@ std::vector<std::vector<RelativeIndex>> SearchServer::search(const std::vector<s
             relativeIndex[i].resize(frequency[i].size());
         }
 
-
         for (int i = 0; i < frequency.size(); ++i) {
             for (int j = 0; j < frequency[i].size(); ++j) {
                 relativeIndex[i][j].doc_id = frequency[i][j].first;
                 relativeIndex[i][j].rank = ((float) frequency[i][j].second / (float) frequency[i][0].second);
 
             }
-
         }
+
     }
 
     return relativeIndex;

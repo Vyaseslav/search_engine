@@ -2,6 +2,14 @@
 
 void InvertedIndex::UpdateDocumentBase(std::vector<std::string> input_docs) {
     std::vector<std::string> words;
+    for (int i = 0; i < input_docs.size(); ++i) {
+        for (char& c : input_docs[i]) {
+            if (c == '.' || c == ',' || c == '!' || c == '?' || c == '/' || c == '\\' || c == '(' || c == ')' || c == '[' || c == ']' || c == '{' || c == '}') {
+                c = ' ';
+            }
+        }
+    }
+
     docs = input_docs;
     //split text to words
     for (int i = 0; i < input_docs.size(); i++) {

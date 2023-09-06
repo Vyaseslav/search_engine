@@ -11,6 +11,8 @@
 #include <vector>
 #include <map>
 #include <thread>
+#include <sstream>
+#include <algorithm>
 using namespace std;
 #include "ConverterJSON.h"
 

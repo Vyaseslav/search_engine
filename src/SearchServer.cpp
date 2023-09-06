@@ -157,14 +157,6 @@ std::vector<std::vector<RelativeIndex>> SearchServer::search(const std::vector<s
             relativeIndex[i].resize(frequency[i].size());
         }
 
-        for (const auto& row : frequency) {
-            for (const auto& pair : row) {
-                std::cout << "(" << pair.first << ", " << pair.second << ") ";
-            }
-            std::cout << std::endl;
-        }
-
-
         for (int i = 0; i < frequency.size(); ++i) {
             for (int j = 0; j < frequency[i].size(); ++j) {
                 relativeIndex[i][j].doc_id = frequency[i][j].first;

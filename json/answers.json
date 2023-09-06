@@ -1,10 +1,10 @@
 {
     "answers": {
         "request1": {
-            "result": "true"
+            "result": "false"
         },
         "request2": {
-            "result": "true"
+            "result": "false"
         },
         "request3": {
             "relevance": [

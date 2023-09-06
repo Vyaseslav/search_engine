@@ -89,17 +89,25 @@ void ConverterJSON::putAnswers(std::vector<std::vector<std::pair<int, float>>> a
     for (int i = 0; i < answers.size(); i++) {
         std::string requestKey = "request" + std::to_string(i + 1);
         nlohmann::json requestJson;
+        if(!answers[i].empty()) {
 
-        for (const auto &pair: answers[i]) {
-            nlohmann::json relevanceJson;
-            relevanceJson["doc_id"] = pair.first;
-            relevanceJson["rank"] = pair.second;
 
-            requestJson["relevance"].push_back(relevanceJson);
+            for (const auto &pair: answers[i]) {
+                nlohmann::json relevanceJson;
+                requestJson["result"] = "true";
+                relevanceJson["doc_id"] = pair.first;
+                relevanceJson["rank"] = pair.second;
+
+                requestJson["relevance"].push_back(relevanceJson);
+            }
+
+
+
+
         }
-
-        requestJson["result"] = "true";
-
+        else {
+            requestJson["result"] = "false";
+        }
         json["answers"][requestKey] = requestJson;
     }
 

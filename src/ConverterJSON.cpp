@@ -2,6 +2,7 @@
 
 std::vector<std::string> ConverterJSON::GetTextDocuments() {
     std::vector<std::string> config;
+    std::vector<std::string> filePath;
     ifstream input("json/config.json");
     if (!input)
     {
@@ -13,33 +14,40 @@ std::vector<std::string> ConverterJSON::GetTextDocuments() {
 
         json dict;
         input >> dict;
-        config.resize(2);
+        input.close();
+        filePath.resize(2);
+
         if (dict["config"] != nullptr) {
-            config[0] = dict["config"]["name"];
-            config[1] = dict["config"]["version"];
+            filePath[0] = dict["config"]["name"];
+            filePath[1] = dict["config"]["version"];
             for (int i = 0; i < dict["files"].size(); i++) {
-                config.push_back(dict["files"][i]);
+                filePath.push_back(dict["files"][i]);
             }
+            config.resize(filePath.size());
         }
-        for (int i = 2; i < config.size(); i++) {
-            ifstream file(config[i]);
+        for (int i = 2; i < filePath.size(); i++) {
+            ifstream file(filePath[i]);
             if (!file)
             {
                 cout << "File not found!\n";
             }
             else {
                 //cout << "OK!\n";
-                getline(file, config[i]);
+                string str;
+                while (!file.eof()){
+                    getline(file, str);
+                    config[i-2] += " " + str;
+                }
                 file.close();
             }
         }
-        input.close();
+
 /*
 for (int i = 0; i < config.size(); ++i) {
     cout << config[i] << endl;
 }*/
-        config.erase(config.begin()); //delete name
-        config.erase(config.begin()); //delete version
+        //config.erase(config.begin()); //delete name
+        //config.erase(config.begin()); //delete version
         return config;
     }
     return{};
@@ -93,17 +101,15 @@ void ConverterJSON::putAnswers(std::vector<std::vector<std::pair<int, float>>> a
 
 
             for (const auto &pair: answers[i]) {
-                nlohmann::json relevanceJson;
-                requestJson["result"] = "true";
-                relevanceJson["doc_id"] = pair.first;
-                relevanceJson["rank"] = pair.second;
+                if(pair.second != 0) {
+                    nlohmann::json relevanceJson;
+                    requestJson["result"] = "true";
+                    relevanceJson["doc_id"] = pair.first;
+                    relevanceJson["rank"] = pair.second;
 
-                requestJson["relevance"].push_back(relevanceJson);
+                    requestJson["relevance"].push_back(relevanceJson);
+                }
             }
-
-
-
-
         }
         else {
             requestJson["result"] = "false";

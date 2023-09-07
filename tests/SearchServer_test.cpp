@@ -11,12 +11,12 @@ TEST(TestCaseSearchServer, TestSimple) {
     const vector<string> request = {"milk water", "sugar"};
     const std::vector<vector<RelativeIndex>> expected = {
             {
-                    {2, 1},
+                    {2, 1.0},
                     {0, 0.7},
                     {1, 0.3}
             },
             {
-                    {0, 1}
+                    {0, 1.0}
             }
     };
     InvertedIndex idx;

@@ -42,12 +42,17 @@ requests.json
 * @return возвращает отсортированный список релевантных ответов для
 заданных запросов
 */
+
+    vector<vector<string>> getUniqRequests(const std::vector<std::string> &queries_input);
+
     std::vector<std::vector<RelativeIndex>> search(const std::vector<std::string>& queries_input);
     std::vector<std::vector<std::pair<int, float>>> relativeIndexToAnswer(vector<std::vector<RelativeIndex>> relativeIndex);
 
 private:
     InvertedIndex _index;
     std::map<std::string, std::vector<Entry>> freq_dictionary;
+    int count = 0;
+
 };
 
 

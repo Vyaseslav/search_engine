@@ -1,12 +1,23 @@
 {
     "answers": {
         "request1": {
-            "result": "false"
+            "relevance": [
+                {
+                    "doc_id": 2,
+                    "rank": 1.0
+                },
+                {
+                    "doc_id": 0,
+                    "rank": 0.699999988079071
+                },
+                {
+                    "doc_id": 1,
+                    "rank": 0.30000001192092896
+                }
+            ],
+            "result": "true"
         },
         "request2": {
-            "result": "false"
-        },
-        "request3": {
             "relevance": [
                 {
                     "doc_id": 0,

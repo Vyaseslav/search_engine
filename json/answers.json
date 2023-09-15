@@ -9,10 +9,6 @@
                 {
                     "doc_id": 0,
                     "rank": 0.699999988079071
-                },
-                {
-                    "doc_id": 1,
-                    "rank": 0.30000001192092896
                 }
             ],
             "result": "true"
@@ -25,6 +21,9 @@
                 }
             ],
             "result": "true"
+        },
+        "request3": {
+            "result": "false"
         }
     }
 }

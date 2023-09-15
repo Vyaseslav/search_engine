@@ -4,7 +4,7 @@ void InvertedIndex::UpdateDocumentBase(std::vector<std::string> input_docs) {
     std::vector<std::string> words;
     for (int i = 0; i < input_docs.size(); ++i) {
         for (char& c : input_docs[i]) {
-            if (c == '.' || c == ',' || c == '!' || c == '?' || c == '/' || c == '\\' || c == '(' || c == ')' || c == '[' || c == ']' || c == '{' || c == '}') {
+            if((c < 'A' || c > 'z') && (c < '0' || c > '9')){
                 c = ' ';
             }
         }
@@ -24,13 +24,12 @@ void InvertedIndex::UpdateDocumentBase(std::vector<std::string> input_docs) {
         //cout << words[i] << " ";
         freq_dictionary.insert(std::make_pair(words[i], GetWordCount(words[i])));
     }
-
-        /*cout << "(doc_id, count)" << endl;
+        cout << "(doc_id, count)" << endl;
         for(auto pair : freq_dictionary) {
             cout << pair.first << " ";
             for(auto sec : pair.second) cout << "(" << sec.doc_id << ", " << sec.count << ")";
             cout << endl;
-        }*/
+        }
 
 }
 

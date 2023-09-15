@@ -1,6 +1,5 @@
 ﻿#include "SearchServer.h"
 
-
 vector<vector<string>> SearchServer::getUniqRequests(const std::vector<std::string> &queries_input){
     vector<vector<string>> requests;
     vector<string> words;
@@ -29,17 +28,14 @@ std::vector<std::vector<RelativeIndex>> SearchServer::search(const std::vector<s
     vector<std::vector<RelativeIndex>> relativeIndex;
     vector<vector<string>> requests = getUniqRequests(queries_input);
 
-
     //3. Сортирует слова в порядке увеличения частоты встречаемости: от самых
     //редких до самых частых. По возрастанию значения поля count поля
     //freq_dictionary
-
     vector<vector<pair<string, int>>> sorted_queries;
     sorted_queries.resize(requests.size());
 
     for (int i = 0; i < requests.size(); ++i) {
         for (int j = 0; j < requests[i].size(); ++j) {
-            //!!!
             auto it = freq_dictionary.find(requests[i][j]);
             if (it == freq_dictionary.end())
             {
@@ -54,7 +50,6 @@ std::vector<std::vector<RelativeIndex>> SearchServer::search(const std::vector<s
             count = 0;
         }
     }
-
 
     if(sorted_queries.empty()){
         relativeIndex.resize(1);
@@ -77,7 +72,6 @@ std::vector<std::vector<RelativeIndex>> SearchServer::search(const std::vector<s
 
         //4. По первому, самому редкому слову из списка находит все документы, в которых
         //встречается слово.
-
         vector<vector<pair<string, vector<int>>>> docs_queries;
         docs_queries.resize(sorted_queries.size());
 
